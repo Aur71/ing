@@ -7,8 +7,8 @@ import coding from '../../public/temp/coding.jpg'
 
 const Post = () => {
   return (
-    <Link href='/' className={styles.post}>
-      <Image src={coding} alt='image' />
+    <Link href='/post/1' className={styles.post}>
+      <Image priority={true} src={coding} alt='image' />
 
       <div className={styles.textContainer}>
         <h5>December 29, 2020</h5>
