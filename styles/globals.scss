@@ -15,6 +15,7 @@ html {
 body {
   font-family: $font-2;
   background-color: $main-clr;
+  overflow: hidden;
 }
 
 ul,
@@ -34,4 +35,22 @@ textarea {
   font-family: $font-2;
   font-weight: normal;
   color: $text-clr-1;
+}
+
+button {
+  background-color: transparent;
+  display: flex;
+  border: none;
+  cursor: pointer;
+}
+
+main {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background-color: $main-clr;
+
+  @media only screen and (max-width: 550px) {
+    padding-top: 70px;
+  }
 }

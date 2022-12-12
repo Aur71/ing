@@ -1,3 +1,11 @@
+import styles from '../styles/Home.module.scss'
+
+import Hero from '../components/home/Hero'
+
 export default function Home() {
-  return <div>home</div>
+  return (
+    <section className={styles.home}>
+      <Hero />
+    </section>
+  )
 }
