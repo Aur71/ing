@@ -8,6 +8,11 @@ const Search = () => {
   const { search, setSearch, showSearch, setShowSearch, setShowSidebar } =
     useGlobalContext()
 
+  const closeSearch = () => {
+    setShowSearch(false)
+    setSearch('')
+  }
+
   return (
     <div className={`${styles.search} ${showSearch && styles.active}`}>
       <div className={styles.center}>
@@ -19,7 +24,7 @@ const Search = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button onClick={() => setShowSearch(false)}>
+        <button onClick={closeSearch}>
           <AiOutlineClose />
         </button>
 
