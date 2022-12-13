@@ -1,7 +1,15 @@
-import React from 'react'
+import styles from '../../styles/PostPage.module.scss'
+
+import Header from '../../components/post/Header'
+import Body from '../../components/post/Body'
 
 const Post = () => {
-  return <div>Post</div>
+  return (
+    <article className={styles.post}>
+      <Header />
+      <Body />
+    </article>
+  )
 }
 
 export default Post
