@@ -1,10 +1,15 @@
 import styles from '../../styles/Search.module.scss'
+
+import SearchResults from './SearchResults'
+
 import { useGlobalContext } from '../../context/context'
+import { useRouter } from 'next/router'
 
 import { AiOutlineClose } from 'react-icons/ai'
 import { RxHamburgerMenu } from 'react-icons/rx'
 
 const Search = () => {
+  const router = useRouter().route
   const { search, setSearch, showSearch, setShowSearch, setShowSidebar } =
     useGlobalContext()
 
@@ -32,6 +37,8 @@ const Search = () => {
           <RxHamburgerMenu />
         </button>
       </div>
+
+      {router !== '/' && <SearchResults />}
     </div>
   )
 }

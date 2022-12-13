@@ -1,4 +1,6 @@
 import styles from '../../styles/Navbar.module.scss'
+import SearchResults from './SearchResults'
+
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -9,7 +11,7 @@ import logo from '../../public/logo/logo-w-t.png'
 import { BiSearchAlt2 } from 'react-icons/bi'
 
 const Navbar = () => {
-  const { setShowSearch } = useGlobalContext()
+  const { setShowSearch, search } = useGlobalContext()
   const router = useRouter().route
 
   return (
@@ -37,7 +39,6 @@ const Navbar = () => {
             <BiSearchAlt2 />
           </button>
         </li>
-        {/* {router !== '/' && 'ceva'} */}
       </ul>
     </nav>
   )
