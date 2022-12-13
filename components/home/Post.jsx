@@ -1,4 +1,5 @@
 import styles from '../../styles/Post.module.scss'
+import { useRouter } from 'next/router'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,11 +8,15 @@ import { FaTrashAlt } from 'react-icons/fa'
 import coding from '../../public/temp/coding.jpg'
 
 const Post = () => {
+  const router = useRouter().route
+
   return (
     <article className={styles.post}>
-      <button className={styles.deleteBtn}>
-        <FaTrashAlt />
-      </button>
+      {router !== '/' && (
+        <button className={styles.deleteBtn}>
+          <FaTrashAlt />
+        </button>
+      )}
 
       <Image priority={true} src={coding} alt='image' />
 
