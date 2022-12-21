@@ -11,10 +11,6 @@
   z-index: 10;
   display: none;
 
-  @media only screen and (max-width: 550px) {
-    display: block;
-  }
-
   &.active {
     display: block;
   }
@@ -47,20 +43,6 @@
       align-items: center;
       color: $text-clr-2;
       font-size: 1.5rem;
-
-      &:last-of-type {
-        display: none;
-      }
-
-      @media only screen and (max-width: 550px) {
-        &:first-of-type {
-          display: none;
-        }
-
-        &:last-of-type {
-          display: flex;
-        }
-      }
     }
   }
 }

@@ -1,19 +1,19 @@
-import styles from '../../styles/PostPage.module.scss'
-import Image from 'next/image'
-import Link from 'next/link'
+import styles from '../../styles/PostPage.module.scss';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import coding from '../../public/temp/coding.jpg'
+import coding from '../../public/temp/coding.jpg';
 
 const Body = () => {
   return (
     <div className={styles.body}>
-      <h1>
+      <h1 className={styles.title}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse fugit
         tenetur eius itaque accusamus placeat? Est explicabo incidunt
         perspiciatis dolorum.
       </h1>
 
-      <h2>
+      <h2 className={styles.brief}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis esse
         explicabo laborum accusamus deserunt voluptate quas pariatur voluptates,
         et, deleniti dolorum nam, cupiditate autem voluptatem repellendus
@@ -21,44 +21,55 @@ const Body = () => {
         dolores necessitatibus illo facere voluptatibus!
       </h2>
 
-      <Image src={coding} alt='temp' />
+      <Image className={styles.thumbnail} src={coding} alt='temp' />
 
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident,
-        libero facilis fugit aspernatur aperiam enim, incidunt similique fuga
-        delectus nisi, qui nam velit officia accusantium minima ipsum eaque modi
-        consectetur ut eius a. Architecto labore at voluptatibus, a voluptatum,
-        numquam earum fugit dolor laudantium ducimus consequuntur dolorum,
-        explicabo mollitia quae quam quas non commodi ipsam. Sequi architecto
-        veritatis facilis reiciendis obcaecati consequuntur eveniet vitae,
-        libero sint nesciunt magnam fugit similique corrupti atque, rerum
-        tempora inventore! Dolores praesentium eos, aperiam ut eaque unde fugiat
-        eum illum ducimus labore! Voluptate, maiores obcaecati sunt quos vitae,
-        a laudantium velit aperiam rem sed exercitationem.
-      </p>
+      <h1>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, nemo?
+      </h1>
 
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab aliquid,
-        quidem laboriosam cumque ullam voluptatum saepe laudantium nemo! Optio
-        quidem illum velit nam nihil! Fugiat provident reprehenderit praesentium
-        adipisci eveniet asperiores qui quas maxime minus distinctio expedita
-        sunt modi porro impedit nostrum labore saepe tempora nulla, dolorum,
-        eaque aut beatae.
-      </p>
+      <h2>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, quia!
+      </h2>
 
       <h3>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia,
-        eveniet.
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus,
+        repellendus!
       </h3>
 
-      <h4>Lorem ipsum dolor sit amet.</h4>
+      <h4>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, facere.
+      </h4>
 
       <h5>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet, illum
-        doloribus. Accusamus ea consequuntur cumque!
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam, tempora?
       </h5>
-    </div>
-  )
-}
 
-export default Body
+      <h6>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed,
+        exercitationem?
+      </h6>
+
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id quas
+        deserunt ipsa earum ea omnis accusantium cupiditate, voluptatem dolorem.
+        Dolorum!
+      </p>
+
+      <ul>
+        <li>list item</li>
+        <li>list item</li>
+        <li>list item</li>
+        <li>list item</li>
+      </ul>
+
+      <ol>
+        <li>list item</li>
+        <li>list item</li>
+        <li>list item</li>
+        <li>list item</li>
+      </ol>
+    </div>
+  );
+};
+
+export default Body;

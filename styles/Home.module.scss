@@ -3,6 +3,17 @@
 .home {
   width: 100%;
   height: auto;
+
+  h1 {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    font-size: clamp(2rem, 5vw, 3rem);
+
+    @media only screen and (max-width: 1250px) {
+      padding: 2rem 1rem clamp(0.5rem, 1vw, 2rem) 1rem;
+    }
+  }
 }
 
 .postContainer {
@@ -10,7 +21,7 @@
   margin: 0 auto;
   width: 100%;
   height: auto;
-  padding: 2rem 0;
+  padding: 1rem 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   place-items: center;

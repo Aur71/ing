@@ -1,23 +1,18 @@
-import styles from '../styles/Home.module.scss'
+import styles from '../styles/Home.module.scss';
 
-import Hero from '../components/home/Hero'
-import Post from '../components/home/Post'
+import Post from '../components/Post';
 
 export default function Home() {
   return (
     <section className={styles.home}>
-      <Hero />
+      <h1>Recent posts:</h1>
 
       <div className={styles.postContainer}>
         <Post />
         <Post />
         <Post />
         <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
       </div>
     </section>
-  )
+  );
 }

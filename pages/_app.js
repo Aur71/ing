@@ -1,6 +1,6 @@
-import '../styles/globals.scss'
-import { AppProvider } from '../context/context'
-import Layout from '../components/layout/Layout'
+import '../styles/globals.scss';
+import { AppProvider } from '../context/context';
+import Layout from '../components/layout/Layout';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </Layout>
     </AppProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

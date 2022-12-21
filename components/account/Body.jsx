@@ -1,6 +1,6 @@
-import styles from '../../styles/Account.module.scss'
+import styles from '../../styles/Account.module.scss';
 
-import Post from '../home/Post'
+import Post from '../Post';
 const Body = () => {
   return (
     <div className={styles.body}>
@@ -9,7 +9,7 @@ const Body = () => {
       <Post />
       <Post />
     </div>
-  )
-}
+  );
+};
 
-export default Body
+export default Body;

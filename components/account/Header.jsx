@@ -1,14 +1,14 @@
-import styles from '../../styles/Account.module.scss'
+import styles from '../../styles/Account.module.scss';
 
-import Image from 'next/image'
+import Image from 'next/image';
 
-import { FaFacebookF } from 'react-icons/fa'
+import { FaFacebookF } from 'react-icons/fa';
 import {
   AiOutlineTwitter,
   AiFillInstagram,
   AiFillLinkedin,
-} from 'react-icons/ai'
-import user from '../../public/temp/user.jpg'
+} from 'react-icons/ai';
+import user from '../../public/temp/user.jpg';
 
 const Header = () => {
   return (
@@ -17,10 +17,8 @@ const Header = () => {
 
       <div className={styles.info}>
         <h1>Some Name</h1>
-        <p>0 followers</p>
-        <p>0 following</p>
 
-        <button>follow</button>
+        <button>logout</button>
       </div>
 
       <ul className={styles.social}>
@@ -49,7 +47,7 @@ const Header = () => {
         </li>
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

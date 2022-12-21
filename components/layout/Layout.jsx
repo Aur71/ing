@@ -1,6 +1,6 @@
-import Navbar from './Navbar'
-import Sidebar from './Sidebar'
-import Search from './Search'
+import Navbar from './Navbar';
+import Sidebar from './Sidebar';
+import Search from './Search';
 
 const Layout = ({ children }) => {
   return (
@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
       <Sidebar />
       <main>{children}</main>
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

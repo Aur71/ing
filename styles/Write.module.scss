@@ -1,0 +1,190 @@
+@import './variables.scss';
+
+.write {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  label {
+    display: block;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+  input[type='text'] {
+    background-color: white;
+    border: none;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    border: 1px solid transparent;
+    outline: transparent;
+    transition: 300ms;
+
+    &:focus {
+      border: 1px solid $acc-clr;
+    }
+  }
+
+  textarea {
+    resize: none;
+    background-color: white;
+    border: none;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    border: 1px solid transparent;
+    outline: transparent;
+    transition: 300ms;
+
+    &:focus {
+      border: 1px solid $acc-clr;
+    }
+  }
+
+  .submitBtn {
+    padding: 1rem;
+    background-color: black;
+    color: white;
+    width: max-content;
+    margin-top: 1rem;
+    transition: 300ms;
+
+    &:hover {
+      background-color: $acc-clr;
+    }
+  }
+}
+
+//
+// EDITOR BELOW
+//
+
+.editor {
+  width: 100%;
+  height: auto;
+  min-height: auto;
+  background-color: white;
+  transition: 300ms;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .tools {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: black;
+    z-index: 9;
+
+    .icon {
+      display: none;
+    }
+
+    @media only screen and (max-width: 450px) {
+      justify-content: center;
+
+      .icon {
+        display: flex;
+      }
+    }
+
+    .headingBtn {
+      font-size: 1.1rem;
+      padding: 1rem;
+      color: white;
+      transition: 300ms;
+      position: relative;
+      cursor: pointer;
+
+      @media only screen and (max-width: 450px) {
+        span {
+          span {
+            display: none;
+          }
+        }
+      }
+
+      div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+        display: none;
+
+        button {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 1rem;
+          background-color: rgb(44, 44, 44);
+          border-bottom: 1px solid white;
+          transition: background-color 300ms;
+
+          &:last-of-type {
+            border-bottom: none;
+          }
+
+          &:hover {
+            background-color: $acc-clr;
+          }
+        }
+      }
+
+      &:hover div {
+        display: block;
+      }
+    }
+
+    button {
+      font-size: 1.1rem;
+      padding: 1rem;
+      color: white;
+      transition: 300ms;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @media only screen and (max-width: 450px) {
+        span {
+          background-color: red;
+          display: none;
+        }
+      }
+
+      &:hover {
+        background-color: $acc-clr;
+      }
+    }
+  }
+
+  .wrapper {
+    width: 100%;
+    height: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+
+    textarea {
+      display: block;
+      border: 1px solid black;
+      overflow: hidden;
+      width: 100%;
+      height: auto;
+      transition: 300ms;
+
+      &:focus {
+        border: 1px solid $acc-clr;
+      }
+    }
+  }
+}

@@ -1,19 +1,19 @@
-import styles from '../../styles/Sidebar.module.scss'
-import { useGlobalContext } from '../../context/context'
+import styles from '../../styles/Sidebar.module.scss';
+import { useGlobalContext } from '../../context/context';
 
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Link from 'next/link';
 
-import logo from '../../public/logo/logo-w-t.png'
+import logo from '../../public/logo/logo-w-t.png';
 import {
   AiOutlineClose,
   AiFillInstagram,
   AiOutlineTwitter,
-} from 'react-icons/ai'
-import { FaFacebookF } from 'react-icons/fa'
+} from 'react-icons/ai';
+import { FaFacebookF } from 'react-icons/fa';
 
 const Sidebar = () => {
-  const { showSidebar, setShowSidebar } = useGlobalContext()
+  const { showSidebar, setShowSidebar } = useGlobalContext();
 
   return (
     <aside className={`${styles.sidebar} ${showSidebar && styles.active}`}>
@@ -63,7 +63,7 @@ const Sidebar = () => {
         </a>
       </div>
     </aside>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
