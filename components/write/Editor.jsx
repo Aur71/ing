@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 
 import { FaHeading, FaParagraph } from 'react-icons/fa';
 import { BsImages } from 'react-icons/bs';
-// import { AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
 
 const Editor = () => {
   const toolsRef = useRef(null);
@@ -98,9 +98,11 @@ const Editor = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(items);
-  }, [items]);
+  const handleDelete = (id) => {
+    const tempItems = items.filter((item) => item.id !== id);
+
+    setItems(tempItems);
+  };
 
   return (
     <div className={styles.editor}>
@@ -138,6 +140,13 @@ const Editor = () => {
           return (
             <div key={id} className={styles.wrapper}>
               <input type='file' accept='image/png, image/jpeg' />
+
+              <button
+                className={styles.deleteBtn}
+                onClick={() => handleDelete(id)}
+              >
+                <AiOutlineClose />
+              </button>
             </div>
           );
         }
@@ -145,25 +154,16 @@ const Editor = () => {
         return (
           <div key={id} className={styles.wrapper}>
             <textarea onChange={(e) => handleChange(e, index, type)}></textarea>
+
+            <button
+              className={styles.deleteBtn}
+              onClick={() => handleDelete(id)}
+            >
+              <AiOutlineClose />
+            </button>
           </div>
         );
       })}
-
-      {/* <div className={styles.wrapper}>
-        <input type='text' />
-
-        <button className={styles.deleteBtn}>
-          <AiOutlineClose />
-        </button>
-      </div>
-
-      <div className={styles.wrapper}>
-        <textarea name='' id='' onChange={autoHeight}></textarea>
-
-        <button className={styles.deleteBtn}>
-          <AiOutlineClose />
-        </button>
-      </div> */}
     </div>
   );
 };
