@@ -1,8 +1,23 @@
 import styles from '../../styles/Write.module.scss';
 
+// HOOKS
 import { useRef, useEffect, useState } from 'react';
+
+import Image from 'next/image';
+
+// FIREBASe
+import { storage } from '../../firebase-config';
+import {
+  ref,
+  uploadBytes,
+  listAll,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage';
+
 import { v4 as uuid } from 'uuid';
 
+// MEDIA
 import { FaHeading, FaParagraph } from 'react-icons/fa';
 import { BsImages } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -72,6 +87,7 @@ const Editor = () => {
         id: small_id,
         type: 'image',
         value: '',
+        name: '',
       },
     ]);
   };
@@ -104,6 +120,60 @@ const Editor = () => {
     setItems(tempItems);
   };
 
+  // IMAGE UPLODING
+
+  const handleImageChange = (e, id) => {
+    const image = e.target.files[0];
+    const unique_id = uuid();
+    const small_id = unique_id.slice(0, 8);
+    const name = image?.name + small_id;
+
+    if (image === null) {
+      return;
+    }
+
+    const imageRef = ref(storage, `media/${name}`);
+    uploadBytes(imageRef, image).then(() => {
+      const listRef = ref(storage, 'media/');
+
+      listAll(listRef).then((res) => {
+        res.items.forEach((item) => {
+          if (item.name === name) {
+            getDownloadURL(item).then((url) => {
+              const tempItems = items.map((item) => {
+                if (item.id === id) {
+                  item.value = url;
+                  item.name = name;
+                  return item;
+                }
+
+                return item;
+              });
+
+              setItems(tempItems);
+            });
+          }
+        });
+      });
+    });
+  };
+
+  const deleteImage = (id, name) => {
+    const tempItems = items.filter((item) => item.id !== id);
+
+    setItems(tempItems);
+
+    const mediaRef = ref(storage, `media/${name}`);
+
+    deleteObject(mediaRef)
+      .then(() => {
+        console.log('Deleted');
+      })
+      .catch((error) => {
+        console.log(`Error: ${error}`);
+      });
+  };
+
   return (
     <div className={styles.editor}>
       <div className={styles.tools} ref={toolsRef}>
@@ -134,21 +204,36 @@ const Editor = () => {
       </div>
 
       {items.map((item, index) => {
-        const { type, id } = item;
+        const { type, id, value } = item;
 
         if (type === 'image') {
-          return (
-            <div key={id} className={styles.wrapper}>
-              <input type='file' accept='image/png, image/jpeg' />
+          if (value === '') {
+            return (
+              <div key={id} className={styles.wrapper}>
+                <input type='file' onChange={(e) => handleImageChange(e, id)} />
 
-              <button
-                className={styles.deleteBtn}
-                onClick={() => handleDelete(id)}
-              >
-                <AiOutlineClose />
-              </button>
-            </div>
-          );
+                <button
+                  className={styles.deleteBtn}
+                  onClick={() => handleDelete(id)}
+                >
+                  <AiOutlineClose />
+                </button>
+              </div>
+            );
+          } else {
+            return (
+              <div className={styles.imgContainer} key={item.id}>
+                <Image src={value} alt={item.name} width={500} height={500} />
+
+                <button
+                  className={styles.deleteBtn}
+                  onClick={() => deleteImage(id, item.name)}
+                >
+                  <AiOutlineClose />
+                </button>
+              </div>
+            );
+          }
         }
 
         return (

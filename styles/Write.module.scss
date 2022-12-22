@@ -195,4 +195,29 @@
       }
     }
   }
+
+  .imgContainer {
+    width: 100%;
+    height: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+
+    img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .deleteBtn {
+      position: absolute;
+      top: 1.5rem;
+      right: 0.2rem;
+      color: red;
+      font-size: 1.2rem;
+    }
+  }
 }
