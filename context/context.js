@@ -1,12 +1,12 @@
-import React from 'react'
-import { useContext, useState } from 'react'
+import React from 'react';
+import { useContext, useState, useEffect } from 'react';
 
-const AppContext = React.createContext()
+const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  const [search, setSearch] = useState('')
-  const [showSearch, setShowSearch] = useState(false)
-  const [showSidebar, setShowSidebar] = useState(false)
+  const [search, setSearch] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   return (
     <AppContext.Provider
@@ -21,11 +21,11 @@ const AppProvider = ({ children }) => {
     >
       {children}
     </AppContext.Provider>
-  )
-}
+  );
+};
 
 export const useGlobalContext = () => {
-  return useContext(AppContext)
-}
+  return useContext(AppContext);
+};
 
-export { AppContext, AppProvider }
+export { AppContext, AppProvider };
