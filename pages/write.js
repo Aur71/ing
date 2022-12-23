@@ -6,6 +6,14 @@ import { useReducer, useEffect } from 'react';
 // FIREBASE
 import { storage } from '../firebase-config';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
+import { db } from '../firebase-config';
+import {
+  addDoc,
+  collection,
+  updateDoc,
+  doc,
+  deleteDoc,
+} from 'firebase/firestore';
 
 // COMPONENTS
 import Editor from '../components/write/Editor';
@@ -19,16 +27,19 @@ import { AiOutlineClose } from 'react-icons/ai';
 
 const write = () => {
   const [state, dispatch] = useReducer(Reducer, {
+    author: '',
     title: '',
     brief: '',
     thumbnail: '',
     thumbnailName: '',
     data: [],
+    date: '',
   });
 
   // SAVING TO LOCAL STORAGE
   useEffect(() => {
     if (
+      state.author !== '' ||
       state.title !== '' ||
       state.brief !== '' ||
       state.thumbnail !== '' ||
@@ -47,13 +58,16 @@ const write = () => {
 
     if (
       article !== null &&
-      (article.title !== '' ||
+      (state.author !== '' ||
+        article.title !== '' ||
         article.brief !== '' ||
         article.thumbnail !== '' ||
         article.thumbnailName !== '' ||
         article.data.length !== 0)
     ) {
       dispatch({ type: 'SET_ARTICLE', payload: article });
+    } else {
+      localStorage.removeItem('article');
     }
   }, []);
 
@@ -93,6 +107,29 @@ const write = () => {
 
   const removeThumbnail = () => {
     dispatch({ type: 'REMOVE_THUMBNAIL' });
+  };
+
+  const createPost = async (e) => {
+    e.preventDefault();
+    const articlesCollectionRef = collection(db, 'articles');
+    dispatch({ type: 'SET_DATE' });
+    await addDoc(articlesCollectionRef, state);
+    dispatch({ type: 'CLEAR_STATE' });
+  };
+
+  // UPDATE POST EXEMPLE
+  const updatePost = async (e, id) => {
+    e.preventDefault();
+    const articleDoc = doc(db, 'articles', id);
+    const newPost = {};
+    await updateDoc(articleDoc, newPost);
+  };
+
+  // DELETE EXEMPLE
+  const deletePost = async (e, id) => {
+    e.preventDefault();
+    const articleDoc = doc(db, 'articles', id);
+    await deleteDoc(articleDoc);
   };
 
   return (
@@ -142,7 +179,12 @@ const write = () => {
       <label htmlFor='content'>Content:</label>
       <Editor state={state} dispatch={dispatch} />
 
-      <button type='submit' className={styles.submitBtn}>
+      {/* NEED TO ADD AUTHORIZATION */}
+      <button
+        type='submit'
+        className={styles.submitBtn}
+        onClick={(e) => createPost(e)}
+      >
         POST
       </button>
     </form>

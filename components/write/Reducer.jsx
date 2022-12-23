@@ -154,5 +154,23 @@ export function Reducer(state, action) {
     return { ...state, data: tempItem };
   }
 
+  if (action.type === 'SET_DATE') {
+    return state;
+  }
+
+  if (action.type === 'CLEAR_STATE') {
+    localStorage.removeItem('article');
+
+    return {
+      author: '',
+      title: '',
+      brief: '',
+      thumbnail: '',
+      thumbnailName: '',
+      data: [],
+      date: '',
+    };
+  }
+
   return state;
 }
