@@ -26,9 +26,36 @@ const write = () => {
     data: [],
   });
 
+  // SAVING TO LOCAL STORAGE
   useEffect(() => {
-    console.log(state);
+    if (
+      state.title !== '' ||
+      state.brief !== '' ||
+      state.thumbnail !== '' ||
+      state.thumbnailName !== '' ||
+      state.data.length !== 0
+    ) {
+      localStorage.setItem('article', JSON.stringify(state));
+    }
   }, [state]);
+
+  // GETTING FROM LOCAL STORAGE
+  useEffect(() => {
+    const article = JSON.parse(localStorage.getItem('article'));
+
+    console.log(article);
+
+    if (
+      article !== null &&
+      (article.title !== '' ||
+        article.brief !== '' ||
+        article.thumbnail !== '' ||
+        article.thumbnailName !== '' ||
+        article.data.length !== 0)
+    ) {
+      dispatch({ type: 'SET_ARTICLE', payload: article });
+    }
+  }, []);
 
   const setTitle = (e) => {
     dispatch({ type: 'SET_TITLE', payload: e.target.value });

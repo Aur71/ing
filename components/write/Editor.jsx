@@ -67,7 +67,7 @@ const Editor = ({ state, dispatch }) => {
       <Tools state={state} dispatch={dispatch} />
 
       {state.data.map((item) => {
-        const { type, id, url, name } = item;
+        const { type, id, url, name, value } = item;
 
         if (type === 'image') {
           if (url === '') {
@@ -101,7 +101,10 @@ const Editor = ({ state, dispatch }) => {
 
         return (
           <div key={id} className={styles.wrapper}>
-            <textarea onChange={(e) => changeValue(e, id, type)} />
+            <textarea
+              value={value}
+              onChange={(e) => changeValue(e, id, type)}
+            />
 
             <button
               className={styles.deleteBtn}

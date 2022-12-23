@@ -1,15 +1,18 @@
 import styles from '../../styles/Write.module.scss';
 // HOOKS
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 // MEDIA
 import { FaHeading, FaParagraph } from 'react-icons/fa';
 import { BsImages } from 'react-icons/bs';
 
 const Tools = ({ dispatch }) => {
+  const [offSet, setOffSet] = useState(0);
   const toolsRef = useRef(null);
 
   useEffect(() => {
+    setOffSet(toolsRef.current.getBoundingClientRect().top);
+
     const checkScroll = () => {
       const offSet = window.scrollY;
 
@@ -27,7 +30,7 @@ const Tools = ({ dispatch }) => {
     window.addEventListener('scroll', checkScroll);
 
     return () => window.removeEventListener('scroll', checkScroll);
-  }, []);
+  }, [offSet]);
 
   const addHeading = (e, level) => {
     e.preventDefault();

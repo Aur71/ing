@@ -6,6 +6,10 @@ import { ref, deleteObject } from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
 
 export function Reducer(state, action) {
+  if (action.type === 'SET_ARTICLE') {
+    return action.payload;
+  }
+
   if (action.type === 'SET_TITLE') {
     return { ...state, title: action.payload };
   }
