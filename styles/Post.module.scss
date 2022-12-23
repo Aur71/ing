@@ -22,17 +22,35 @@
     z-index: -1;
   }
 
-  .deleteBtn {
-    display: flex;
-    color: red;
+  .btnContainer {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 1;
-    font-size: 2rem;
-    background-color: black;
+    top: 0;
+    right: 0;
     padding: 1rem;
-    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    .deleteBtn {
+      display: flex;
+      color: red;
+      z-index: 1;
+      font-size: 2rem;
+      background-color: black;
+      padding: 1rem;
+      border-radius: 50%;
+    }
+
+    .updateBtn {
+      display: flex;
+      color: green;
+      background-color: black;
+      z-index: 1;
+      font-size: 2rem;
+      padding: 1rem;
+      border-radius: 50%;
+    }
   }
 
   .textContainer {

@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 
 // FIREBASE
 import { db } from '../firebase-config';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, orderBy } from 'firebase/firestore';
 
 const AppContext = React.createContext();
 

@@ -7,7 +7,6 @@ const Body = () => {
       <Post />
       <Post />
       <Post />
-      <Post />
     </div>
   );
 };

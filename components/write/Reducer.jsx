@@ -1,6 +1,7 @@
 // FIREBASE
 import { storage } from '../../firebase-config';
 import { ref, deleteObject } from 'firebase/storage';
+import { serverTimestamp } from 'firebase/firestore';
 
 // UUID
 import { v4 as uuid } from 'uuid';
@@ -152,10 +153,6 @@ export function Reducer(state, action) {
       });
 
     return { ...state, data: tempItem };
-  }
-
-  if (action.type === 'SET_DATE') {
-    return state;
   }
 
   if (action.type === 'CLEAR_STATE') {

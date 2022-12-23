@@ -10,6 +10,29 @@
   flex-direction: column;
   gap: 5px;
 
+  .alert {
+    position: absolute;
+    background-color: red;
+    padding: 1rem;
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    text-align: center;
+    max-width: 200px;
+    word-wrap: wrap;
+    top: 100px;
+    top: -50vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    transition: 300ms;
+
+    &.active {
+      z-index: 999;
+      top: 100px;
+    }
+  }
+
   label {
     display: block;
     font-size: clamp(1.5rem, 5vw, 2.5rem);

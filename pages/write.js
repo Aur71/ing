@@ -2,18 +2,12 @@ import styles from '../styles/Write.module.scss';
 // REDUCER
 import { Reducer } from '../components/write/Reducer';
 // HOOKS
-import { useReducer, useEffect } from 'react';
+import { useReducer, useEffect, useState } from 'react';
 // FIREBASE
 import { storage } from '../firebase-config';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 import { db } from '../firebase-config';
-import {
-  addDoc,
-  collection,
-  updateDoc,
-  doc,
-  deleteDoc,
-} from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 // COMPONENTS
 import Editor from '../components/write/Editor';
@@ -26,6 +20,7 @@ import { v4 as uuid } from 'uuid';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const write = () => {
+  const [alert, setAlert] = useState(false);
   const [state, dispatch] = useReducer(Reducer, {
     author: '',
     title: '',
@@ -33,7 +28,7 @@ const write = () => {
     thumbnail: '',
     thumbnailName: '',
     data: [],
-    date: '',
+    date: serverTimestamp(),
   });
 
   // SAVING TO LOCAL STORAGE
@@ -111,29 +106,41 @@ const write = () => {
 
   const createPost = async (e) => {
     e.preventDefault();
-    const articlesCollectionRef = collection(db, 'articles');
-    dispatch({ type: 'SET_DATE' });
-    await addDoc(articlesCollectionRef, state);
-    dispatch({ type: 'CLEAR_STATE' });
+
+    if ('loggedin' === false) {
+      return;
+    } else if (!state.title && !state.brief && !state.thumbnail) {
+      setAlert(true);
+    } else {
+      try {
+        const articlesCollectionRef = collection(db, 'articles');
+        await addDoc(articlesCollectionRef, state);
+        dispatch({ type: 'CLEAR_STATE' });
+      } catch (error) {
+        window.alert(`ERROR: ${error}`);
+      }
+    }
   };
 
-  // UPDATE POST EXEMPLE
-  const updatePost = async (e, id) => {
-    e.preventDefault();
-    const articleDoc = doc(db, 'articles', id);
-    const newPost = {};
-    await updateDoc(articleDoc, newPost);
-  };
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setAlert(false);
+    }, 4000);
 
-  // DELETE EXEMPLE
-  const deletePost = async (e, id) => {
-    e.preventDefault();
-    const articleDoc = doc(db, 'articles', id);
-    await deleteDoc(articleDoc);
-  };
+    return () => clearTimeout(timeout);
+  }, [alert]);
+
+  // SET AUTHOR
+  // useEffect(() => {
+  //   dispatch({ type: 'SET_AUTHOR' });
+  // }, []);
 
   return (
     <form className={styles.write}>
+      <div className={`${styles.alert} ${alert && styles.active}`}>
+        Title, Brief and Thumbnail cant be empty
+      </div>
+
       <label htmlFor='title'>Title:</label>
       <input
         type='text'
