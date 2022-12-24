@@ -5,7 +5,6 @@ import SearchResults from './SearchResults';
 import { useGlobalContext } from '../../context/context';
 
 import { AiOutlineClose } from 'react-icons/ai';
-import { RxHamburgerMenu } from 'react-icons/rx';
 
 const Search = () => {
   const { search, setSearch, showSearch, setShowSearch } = useGlobalContext();

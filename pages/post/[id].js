@@ -28,7 +28,7 @@ const Post = () => {
       );
       setArticle({ ...doc.data(), id: doc.id });
     });
-  }, []);
+  }, [router.query.id]);
 
   useEffect(() => {
     const currentArticle = JSON.parse(localStorage.getItem('currentArticle'));
