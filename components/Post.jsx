@@ -13,9 +13,8 @@ import Link from 'next/link';
 // MEDIA
 import { FaTrashAlt } from 'react-icons/fa';
 import { AiFillEdit } from 'react-icons/ai';
-import coding from '../public/temp/coding.jpg';
 
-const Post = () => {
+const Post = ({ article }) => {
   const router = useRouter().route;
 
   // NEED TO ADD AUTHORIZATION
@@ -33,6 +32,18 @@ const Post = () => {
     await updateDoc(articleDoc, newPost);
   };
 
+  // CONVERTING DATE
+  function toDateTime(secs) {
+    var t = new Date(1970, 0, 1); // Epoch
+    t.setSeconds(secs);
+
+    return t.toLocaleDateString('en', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  }
+
   return (
     <article className={styles.post}>
       {router !== '/' && (
@@ -47,24 +58,21 @@ const Post = () => {
         </div>
       )}
 
-      <Image priority={true} src={coding} alt='image' />
+      <Image
+        priority={true}
+        width={450}
+        height={450}
+        src={article?.thumbnail}
+        alt='image'
+      />
 
-      <Link href='/post/1'>
+      <Link href={`/post/${article?.id}`}>
         <div className={styles.textContainer}>
-          <h5>December 29, 2020</h5>
+          <h5>{toDateTime(article?.date?.seconds)}</h5>
 
-          <h4>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus
-            provident numquam recusandae rerum eius, non beatae optio possimus
-            nostrum illum?
-          </h4>
+          <h4>{article?.title}</h4>
 
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda,
-            ipsa reiciendis adipisci minima repellat molestias aperiam harum
-            atque, voluptas dolorem consequuntur iusto tempora, eos sint veniam
-            similique ratione quisquam ab.
-          </p>
+          <p>{article?.brief}</p>
         </div>
       </Link>
     </article>

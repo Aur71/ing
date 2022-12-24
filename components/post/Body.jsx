@@ -1,73 +1,70 @@
 import styles from '../../styles/PostPage.module.scss';
 import Image from 'next/image';
-import Link from 'next/link';
 
-import coding from '../../public/temp/coding.jpg';
-
-const Body = () => {
+const Body = ({ article }) => {
   return (
     <div className={styles.body}>
-      <h1 className={styles.title}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse fugit
-        tenetur eius itaque accusamus placeat? Est explicabo incidunt
-        perspiciatis dolorum.
-      </h1>
+      <h1 className={styles.title}>{article?.title}</h1>
 
-      <h2 className={styles.brief}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis esse
-        explicabo laborum accusamus deserunt voluptate quas pariatur voluptates,
-        et, deleniti dolorum nam, cupiditate autem voluptatem repellendus
-        consequatur tenetur iste? Magni, unde impedit. Repudiandae iure alias
-        dolores necessitatibus illo facere voluptatibus!
-      </h2>
+      <h2 className={styles.brief}>{article?.brief}</h2>
 
-      <Image className={styles.thumbnail} src={coding} alt='temp' />
+      {article.thumbnail && (
+        <Image
+          priority={true}
+          src={article?.thumbnail}
+          alt='thumbnail'
+          width='1360'
+          height='1360'
+          className={styles.thumbnail}
+        />
+      )}
 
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, nemo?
-      </h1>
+      {article?.data?.map((item) => {
+        const { id, type, name, url, level, value } = item;
 
-      <h2>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, quia!
-      </h2>
+        if (type === 'heading') {
+          if (level === 1) {
+            return <h1 key={id}>{value}</h1>;
+          }
 
-      <h3>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus,
-        repellendus!
-      </h3>
+          if (level === 2) {
+            return <h2 key={id}>{value}</h2>;
+          }
 
-      <h4>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, facere.
-      </h4>
+          if (level === 3) {
+            return <h3 key={id}>{value}</h3>;
+          }
 
-      <h5>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam, tempora?
-      </h5>
+          if (level === 4) {
+            return <h4 key={id}>{value}</h4>;
+          }
 
-      <h6>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed,
-        exercitationem?
-      </h6>
+          if (level === 5) {
+            return <h5 key={id}>{value}</h5>;
+          }
 
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id quas
-        deserunt ipsa earum ea omnis accusantium cupiditate, voluptatem dolorem.
-        Dolorum!
-      </p>
+          if (level === 6) {
+            return <h6 key={id}>{value}</h6>;
+          }
+        }
 
-      <ul>
-        <li>list item</li>
-        <li>list item</li>
-        <li>list item</li>
-        <li>list item</li>
-      </ul>
+        if (type === 'paragraph') {
+          return <p key={id}>{value}</p>;
+        }
 
-      <ol>
-        <li>list item</li>
-        <li>list item</li>
-        <li>list item</li>
-        <li>list item</li>
-      </ol>
+        if (type === 'image') {
+          return (
+            <Image
+              key={id}
+              src={url}
+              alt={name}
+              priority={true}
+              width={1000}
+              height={1000}
+            />
+          );
+        }
+      })}
     </div>
   );
 };

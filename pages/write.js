@@ -3,6 +3,7 @@ import styles from '../styles/Write.module.scss';
 import { Reducer } from '../components/write/Reducer';
 // HOOKS
 import { useReducer, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 // FIREBASE
 import { storage } from '../firebase-config';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
@@ -20,6 +21,7 @@ import { v4 as uuid } from 'uuid';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const write = () => {
+  const router = useRouter();
   const [alert, setAlert] = useState(false);
   const [state, dispatch] = useReducer(Reducer, {
     author: '',
@@ -48,8 +50,6 @@ const write = () => {
   // GETTING FROM LOCAL STORAGE
   useEffect(() => {
     const article = JSON.parse(localStorage.getItem('article'));
-
-    console.log(article);
 
     if (
       article !== null &&
@@ -115,6 +115,7 @@ const write = () => {
       try {
         const articlesCollectionRef = collection(db, 'articles');
         await addDoc(articlesCollectionRef, state);
+        router.push('/');
         dispatch({ type: 'CLEAR_STATE' });
       } catch (error) {
         window.alert(`ERROR: ${error}`);
