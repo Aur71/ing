@@ -4,6 +4,7 @@ import { Reducer } from '../components/write/Reducer';
 // HOOKS
 import { useReducer, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useGlobalContext } from '../context/context';
 // FIREBASE
 import { storage } from '../firebase-config';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
@@ -22,6 +23,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 
 const write = () => {
   const router = useRouter();
+  const { googleSignIn, user } = useGlobalContext();
   const [alert, setAlert] = useState(false);
   const [state, dispatch] = useReducer(Reducer, {
     author: '',
@@ -32,6 +34,15 @@ const write = () => {
     data: [],
     date: serverTimestamp(),
   });
+
+  // SIGN IN
+  const handleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      alert(`ERROR: ${error}`);
+    }
+  };
 
   // SAVING TO LOCAL STORAGE
   useEffect(() => {
@@ -107,7 +118,8 @@ const write = () => {
   const createPost = async (e) => {
     e.preventDefault();
 
-    if ('loggedin' === false) {
+    if (user === null) {
+      handleSignIn();
       return;
     } else if (!state.title && !state.brief && !state.thumbnail) {
       setAlert(true);
@@ -132,9 +144,11 @@ const write = () => {
   }, [alert]);
 
   // SET AUTHOR
-  // useEffect(() => {
-  //   dispatch({ type: 'SET_AUTHOR' });
-  // }, []);
+  useEffect(() => {
+    if (user !== null) {
+      dispatch({ type: 'SET_AUTHOR', payload: user });
+    }
+  }, [user]);
 
   return (
     <form className={styles.write}>

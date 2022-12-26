@@ -1,17 +1,18 @@
 import styles from '../../styles/Navbar.module.scss';
+// HOOKS
+import { useGlobalContext } from '../../context/context';
 
+// OTHER
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { useGlobalContext } from '../../context/context';
-
+// MEDIA
 import logo from '../../public/logo/logo-w-t.png';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { RxHamburgerMenu } from 'react-icons/rx';
 
 const Navbar = () => {
-  const { setShowSearch, setShowSidebar } = useGlobalContext();
-
+  const { setShowSearch, setShowSidebar, user } = useGlobalContext();
   return (
     <nav className={styles.navbar}>
       <ul>
@@ -21,7 +22,9 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link href='/account/1'>Account</Link>
+          <Link href={`/account/${user !== null ? user.uid : 'signin'}`}>
+            Account
+          </Link>
         </li>
         <li>
           <Link href='/write'>Write</Link>

@@ -1,51 +1,28 @@
 import styles from '../../styles/Account.module.scss';
+// HOOKS
+import { useGlobalContext } from '../../context/context';
 
+// OTHER
 import Image from 'next/image';
 
-import { FaFacebookF } from 'react-icons/fa';
-import {
-  AiOutlineTwitter,
-  AiFillInstagram,
-  AiFillLinkedin,
-} from 'react-icons/ai';
-import user from '../../public/temp/user.jpg';
-
 const Header = () => {
+  const { logOut, user } = useGlobalContext();
+
   return (
     <div className={styles.header}>
-      <Image className={styles.user} src={user} alt='user' />
+      <Image
+        className={styles.user}
+        src={user?.photoURL}
+        alt='user'
+        width={250}
+        height={250}
+      />
 
       <div className={styles.info}>
-        <h1>Some Name</h1>
+        <h1>{user?.displayName}</h1>
 
-        <button>logout</button>
+        <button onClick={logOut}>logout</button>
       </div>
-
-      <ul className={styles.social}>
-        <li>
-          <a target='_blank' href='/'>
-            <FaFacebookF />
-          </a>
-        </li>
-
-        <li>
-          <a target='_blank' href='/'>
-            <AiOutlineTwitter />
-          </a>
-        </li>
-
-        <li>
-          <a target='_blank' href='/'>
-            <AiFillInstagram />
-          </a>
-        </li>
-
-        <li>
-          <a target='_blank' href='/'>
-            <AiFillLinkedin />
-          </a>
-        </li>
-      </ul>
     </div>
   );
 };

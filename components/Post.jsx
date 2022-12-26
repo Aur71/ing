@@ -46,7 +46,8 @@ const Post = ({ article }) => {
 
   return (
     <article className={styles.post}>
-      {router !== '/' && (
+      {/* if user === auth.currentUser; return edit, delete */}
+      {/* {router !== '/' && (
         <div className={styles.btnContainer}>
           <button className={styles.deleteBtn} onClick={(e) => deletePost(e)}>
             <FaTrashAlt />
@@ -56,8 +57,7 @@ const Post = ({ article }) => {
             <AiFillEdit />
           </button>
         </div>
-      )}
-
+      )} */}
       <Image
         priority={true}
         width={450}
@@ -65,13 +65,10 @@ const Post = ({ article }) => {
         src={article?.thumbnail}
         alt='image'
       />
-
       <Link href={`/post/${article?.id}`}>
         <div className={styles.textContainer}>
           <h5>{toDateTime(article?.date?.seconds)}</h5>
-
           <h4>{article?.title}</h4>
-
           <p>{article?.brief}</p>
         </div>
       </Link>

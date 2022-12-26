@@ -1,7 +1,6 @@
 // FIREBASE
 import { storage } from '../../firebase-config';
 import { ref, deleteObject } from 'firebase/storage';
-import { serverTimestamp } from 'firebase/firestore';
 
 // UUID
 import { v4 as uuid } from 'uuid';
@@ -167,6 +166,12 @@ export function Reducer(state, action) {
       data: [],
       date: '',
     };
+  }
+
+  if (action.type === 'SET_AUTHOR') {
+    const authorId = action.payload.uid;
+
+    return { ...state, author: authorId };
   }
 
   return state;

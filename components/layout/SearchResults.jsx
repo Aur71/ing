@@ -71,7 +71,7 @@ const SearchResults = () => {
               >
                 <h3>{title}</h3>
                 <h4>
-                  {author} <span>·</span> {toDateTime(date.seconds)}
+                  {author} <span>·</span> {toDateTime(date?.seconds)}
                 </h4>
               </Link>
             );
