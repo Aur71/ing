@@ -29,7 +29,7 @@ const Account = () => {
   return (
     <section className={styles.account}>
       <Header />
-      {/* <Body /> */}
+      <Body />
     </section>
   );
 };

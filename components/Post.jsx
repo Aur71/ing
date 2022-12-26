@@ -1,10 +1,9 @@
 import styles from '../styles/Post.module.scss';
-// HOOKS
-import { useRouter } from 'next/router';
 
 // FIREBASE
 import { db } from '../firebase-config';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { auth } from '../firebase-config';
 
 // OTHER
 import Image from 'next/image';
@@ -15,10 +14,12 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { AiFillEdit } from 'react-icons/ai';
 
 const Post = ({ article }) => {
-  const router = useRouter().route;
-
   // NEED TO ADD AUTHORIZATION
   const deletePost = async (e, id) => {
+    if (article?.author !== auth?.currentUser?.uid) {
+      return;
+    }
+
     e.preventDefault();
     const articleDoc = doc(db, 'articles', id);
     await deleteDoc(articleDoc);
@@ -26,10 +27,14 @@ const Post = ({ article }) => {
 
   // NEED TO ADD AUTHORIZATION
   const updatePost = async (e, id) => {
+    if (article?.author !== auth?.currentUser?.uid) {
+      return;
+    }
+
     e.preventDefault();
     const articleDoc = doc(db, 'articles', id);
-    const newPost = {};
-    await updateDoc(articleDoc, newPost);
+    // const newPost = {};
+    // await updateDoc(articleDoc, newPost);
   };
 
   // CONVERTING DATE
@@ -46,18 +51,24 @@ const Post = ({ article }) => {
 
   return (
     <article className={styles.post}>
-      {/* if user === auth.currentUser; return edit, delete */}
-      {/* {router !== '/' && (
+      {article?.author === auth?.currentUser?.uid && (
         <div className={styles.btnContainer}>
-          <button className={styles.deleteBtn} onClick={(e) => deletePost(e)}>
+          <button
+            className={styles.deleteBtn}
+            onClick={(e) => deletePost(e, article?.id)}
+          >
             <FaTrashAlt />
           </button>
 
-          <button className={styles.updateBtn} onClick={(e) => updatePost(e)}>
+          <button
+            className={styles.updateBtn}
+            onClick={(e) => updatePost(e, article?.id)}
+          >
             <AiFillEdit />
           </button>
         </div>
-      )} */}
+      )}
+
       <Image
         priority={true}
         width={450}
