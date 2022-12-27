@@ -20,6 +20,18 @@ const Account = () => {
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
+    const storageUser = JSON.parse(localStorage.getItem('currentUser'));
+    const storageArticles = JSON.parse(localStorage.getItem('currentArticles'));
+
+    if (articles.length === 0 || currentUser.displayName === null) {
+      if (storageUser !== undefined || storageArticles !== undefined) {
+        setArticles(storageArticles);
+        setCurrentUser(storageUser);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     // GETTING THE ARTICLES
     if (router.query.name === 'myaccount') {
       if (user?.uid === undefined) {
@@ -40,7 +52,7 @@ const Account = () => {
       }
     } else {
       users.map((user) => {
-        // ADDED TO LOCAL STORAGE, STILL NEED TO RETREVE
+        // ADDED TO LOCAL STORAGE
         if (user.id === router.query.name) {
           setCurrentUser(user);
           localStorage.setItem('currentUser', JSON.stringify(user));
@@ -59,7 +71,7 @@ const Account = () => {
               }))
             );
 
-            localStorage.setItem('currentArticle', formatedData);
+            localStorage.setItem('currentArticles', formatedData);
 
             setArticles(
               snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
@@ -69,8 +81,6 @@ const Account = () => {
       });
     }
   }, [router.query.name, user]);
-
-  console.log(articles);
 
   // SIGNIN
   const handleSignIn = async () => {
