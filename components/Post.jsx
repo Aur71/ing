@@ -69,13 +69,15 @@ const Post = ({ article }) => {
         </div>
       )}
 
-      <Image
-        priority={true}
-        width={450}
-        height={450}
-        src={article?.thumbnail}
-        alt='image'
-      />
+      {article.thumbnail && (
+        <Image
+          priority={true}
+          width={450}
+          height={450}
+          src={article?.thumbnail}
+          alt='image'
+        />
+      )}
       <Link href={`/post/${article?.id}`}>
         <div className={styles.textContainer}>
           <h5>{toDateTime(article?.date?.seconds)}</h5>

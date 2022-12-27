@@ -15,6 +15,7 @@ const Post = () => {
   const router = useRouter();
   const [article, setArticle] = useState({});
 
+  // NEED TO GET THE AUTHOR HERE ASS WELL
   useEffect(() => {
     if (router.query.id === undefined) {
       return;
@@ -32,7 +33,7 @@ const Post = () => {
 
   useEffect(() => {
     const currentArticle = JSON.parse(localStorage.getItem('currentArticle'));
-    if (!article.title) {
+    if (!article.title && currentArticle?.title) {
       setArticle(currentArticle);
     }
   }, []);

@@ -2,9 +2,10 @@ import styles from '../../styles/PostPage.module.scss';
 
 // HOOKS
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 // FIREBASE
-import { auth, db } from '../../firebase-config';
+import { db } from '../../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 
 // OTHER
@@ -13,6 +14,7 @@ import Link from 'next/link';
 
 const Header = ({ article }) => {
   const [author, setAuthor] = useState({});
+  const router = useRouter();
 
   // CONVERTING DATE
   function toDateTime(secs) {
@@ -40,24 +42,26 @@ const Header = ({ article }) => {
     };
 
     return () => getAuthor();
-  }, [article]);
+  }, [article, router.query]);
 
   return (
     <div className={styles.header}>
       <Link href={`/account/${author?.id}`}>
-        <Image
-          priority={true}
-          src={author?.image}
-          width={60}
-          height={60}
-          alt='user image'
-          className={styles.profilePicture}
-        />
+        {author.photoURL && (
+          <Image
+            priority={true}
+            src={author?.photoURL}
+            width={60}
+            height={60}
+            alt='user image'
+            className={styles.profilePicture}
+          />
+        )}
       </Link>
 
       <div className={styles.info}>
         <Link href='/'>
-          <h5>{author?.name}</h5>
+          <h5>{author?.displayName}</h5>
         </Link>
 
         <p>{toDateTime(article?.date?.seconds)}</p>
