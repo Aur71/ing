@@ -12,7 +12,8 @@ import { BiSearchAlt2 } from 'react-icons/bi';
 import { RxHamburgerMenu } from 'react-icons/rx';
 
 const Navbar = () => {
-  const { setShowSearch, setShowSidebar, user } = useGlobalContext();
+  const { setShowSearch, setShowSidebar } = useGlobalContext();
+
   return (
     <nav className={styles.navbar}>
       <ul>
@@ -22,9 +23,7 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <Link href={`/account/${user !== null ? user.uid : 'signin'}`}>
-            Account
-          </Link>
+          <Link href='/account/myaccount'>Account</Link>
         </li>
         <li>
           <Link href='/write'>Write</Link>

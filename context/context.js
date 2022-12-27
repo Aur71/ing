@@ -11,7 +11,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import { db } from '../firebase-config';
-import { addDoc, collection, getDoc, getDocs } from 'firebase/firestore';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 
 const AppContext = React.createContext();
 
@@ -57,9 +57,9 @@ const AppProvider = ({ children }) => {
           if (!ids.includes(currentUser.uid)) {
             const tempUser = {
               id: currentUser.uid,
-              name: currentUser.displayName,
+              displayName: currentUser.displayName,
               email: currentUser.email,
-              image: currentUser.photoURL,
+              photoURL: currentUser.photoURL,
             };
             await addDoc(usersCollectionRef, tempUser);
           }
