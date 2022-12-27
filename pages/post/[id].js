@@ -9,38 +9,58 @@ import Body from '../../components/post/Body';
 
 // FIREBASE
 import { db } from '../../firebase-config';
-import { getDoc, doc } from 'firebase/firestore';
+import {
+  getDoc,
+  doc,
+  query,
+  where,
+  onSnapshot,
+  collection,
+  getDocs,
+} from 'firebase/firestore';
 
 const Post = () => {
   const router = useRouter();
   const [article, setArticle] = useState({});
+  const [author, setAuthor] = useState({});
 
-  // NEED TO GET THE AUTHOR HERE ASS WELL
+  // GETTING THE ARTICLE
   useEffect(() => {
-    if (router.query.id === undefined) {
+    if (!router.query.id) {
       return;
     }
-    const postRef = doc(db, 'articles', router?.query?.id);
 
-    getDoc(postRef).then((doc) => {
-      localStorage.setItem(
-        'currentArticle',
-        JSON.stringify({ ...doc.data(), id: doc.id })
-      );
-      setArticle({ ...doc.data(), id: doc.id });
-    });
-  }, [router.query.id]);
+    const getArticle = async () => {
+      const postRef = doc(db, 'articles', router.query.id);
+      const data = await getDoc(postRef);
+      setArticle({ ...data.data() });
+    };
 
+    getArticle();
+  }, [router.isReady]);
+
+  // GETTING THE AUTHOR
   useEffect(() => {
-    const currentArticle = JSON.parse(localStorage.getItem('currentArticle'));
-    if (!article.title && currentArticle?.title) {
-      setArticle(currentArticle);
+    if (!article.author) {
+      return;
     }
-  }, []);
+
+    const getAuthor = async () => {
+      const authorRef = collection(db, 'users');
+      const q = query(authorRef, where('id', '==', article?.author));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        setAuthor({ ...doc.data(), _id: doc.id });
+      });
+    };
+
+    getAuthor();
+  }, [article]);
 
   return (
     <article className={styles.post}>
-      <Header article={article} />
+      <Header article={article} author={author} />
       <Body article={article} />
     </article>
   );
