@@ -6,7 +6,15 @@ import { useEffect, useState } from 'react';
 
 // FIREBASE
 import { db } from '../../firebase-config';
-import { collection, query, onSnapshot, where } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  onSnapshot,
+  where,
+  getDocs,
+  getDoc,
+  doc,
+} from 'firebase/firestore';
 
 // COMPONENETS
 import Header from '../../components/account/Header';
@@ -20,67 +28,104 @@ const Account = () => {
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
-    const storageUser = JSON.parse(localStorage.getItem('currentUser'));
-    const storageArticles = JSON.parse(localStorage.getItem('currentArticles'));
+    if (router.query.name === 'myaccount' && user !== null) {
+      const getInfo = async () => {
+        // GETTING THE USER
+        const userRef = collection(db, 'users');
+        const usersQuery = query(userRef, where('id', '==', user.uid));
+        const userSnapshot = await getDocs(usersQuery);
+        userSnapshot.forEach((doc) => {
+          setCurrentUser({ ...doc.data(), _id: doc.id });
+        });
 
-    if (articles.length === 0 || currentUser.displayName === null) {
-      if (storageUser !== undefined || storageArticles !== undefined) {
-        setArticles(storageArticles);
-        setCurrentUser(storageUser);
-      }
+        // GETTING THE ARTICLES THAT CORESPOND TO THE USER
+        const articlesRef = collection(db, 'articles');
+        const articlesQuery = query(
+          articlesRef,
+          where('author', '==', user.uid)
+        );
+        const articlesSnapshot = await getDocs(articlesQuery);
+        setArticles(articlesSnapshot.docs);
+
+        articlesSnapshot.forEach((doc) => {
+          // console.log(doc.data())
+        });
+      };
+
+      getInfo();
+    } else if (!router.query.name) {
+      return;
+    } else {
+      console.log('other account');
     }
-  }, []);
+  }, [router.isReady, user, router.query.name]);
 
   useEffect(() => {
-    // GETTING THE ARTICLES
-    if (router.query.name === 'myaccount') {
-      if (user?.uid === undefined) {
-        return;
-      } else {
-        setCurrentUser(user);
-        const articlesCollectionRef = collection(db, 'articles');
-        const q = query(
-          articlesCollectionRef,
-          where('author', '==', user?.uid)
-        );
+    console.log(articles);
+  }, [articles]);
 
-        const data = onSnapshot(q, (snapshot) => {
-          setArticles(
-            snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-          );
-        });
-      }
-    } else {
-      users.map((user) => {
-        // ADDED TO LOCAL STORAGE
-        if (user.id === router.query.name) {
-          setCurrentUser(user);
-          localStorage.setItem('currentUser', JSON.stringify(user));
+  // useEffect(() => {
+  //   const storageUser = JSON.parse(localStorage.getItem('currentUser'));
+  //   const storageArticles = JSON.parse(localStorage.getItem('currentArticles'));
 
-          const articlesCollectionRef = collection(db, 'articles');
-          const q = query(
-            articlesCollectionRef,
-            where('author', '==', router.query.name)
-          );
+  //   if (articles.length === 0 || currentUser.displayName === null) {
+  //     if (storageUser !== undefined || storageArticles !== undefined) {
+  //       setArticles(storageArticles);
+  //       setCurrentUser(storageUser);
+  //     }
+  //   }
+  // }, []);
 
-          const data = onSnapshot(q, (snapshot) => {
-            const formatedData = JSON.stringify(
-              snapshot.docs.map((doc) => ({
-                ...doc.data(),
-                id: doc.id,
-              }))
-            );
+  // useEffect(() => {
+  //   // GETTING THE ARTICLES
+  //   if (router.query.name === 'myaccount') {
+  //     if (user?.uid === undefined) {
+  //       return;
+  //     } else {
+  //       setCurrentUser(user);
+  //       const articlesCollectionRef = collection(db, 'articles');
+  //       const q = query(
+  //         articlesCollectionRef,
+  //         where('author', '==', user?.uid)
+  //       );
 
-            localStorage.setItem('currentArticles', formatedData);
+  //       const data = onSnapshot(q, (snapshot) => {
+  //         setArticles(
+  //           snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+  //         );
+  //       });
+  //     }
+  //   } else {
+  //     users.map((user) => {
+  //       // ADDED TO LOCAL STORAGE
+  //       if (user.id === router.query.name) {
+  //         setCurrentUser(user);
+  //         localStorage.setItem('currentUser', JSON.stringify(user));
 
-            setArticles(
-              snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-            );
-          });
-        }
-      });
-    }
-  }, [router.query.name, user]);
+  //         const articlesCollectionRef = collection(db, 'articles');
+  //         const q = query(
+  //           articlesCollectionRef,
+  //           where('author', '==', router.query.name)
+  //         );
+
+  //         const data = onSnapshot(q, (snapshot) => {
+  //           const formatedData = JSON.stringify(
+  //             snapshot.docs.map((doc) => ({
+  //               ...doc.data(),
+  //               id: doc.id,
+  //             }))
+  //           );
+
+  //           localStorage.setItem('currentArticles', formatedData);
+
+  //           setArticles(
+  //             snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+  //           );
+  //         });
+  //       }
+  //     });
+  //   }
+  // }, [router.query.name, user]);
 
   // SIGNIN
   const handleSignIn = async () => {
@@ -102,7 +147,7 @@ const Account = () => {
   return (
     <section className={styles.account}>
       <Header currentUser={currentUser} />
-      <Body articles={articles} />
+      {/* <Body articles={articles} /> */}
     </section>
   );
 };
