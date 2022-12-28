@@ -7,31 +7,6 @@ import { FaHeading, FaParagraph } from 'react-icons/fa';
 import { BsImages } from 'react-icons/bs';
 
 const Tools = ({ dispatch }) => {
-  const [offSet, setOffSet] = useState(0);
-  const toolsRef = useRef(null);
-
-  useEffect(() => {
-    setOffSet(toolsRef.current.getBoundingClientRect().top);
-
-    const checkScroll = () => {
-      const offSet = window.scrollY;
-
-      if (offSet >= 450) {
-        toolsRef.current.style.position = 'fixed';
-        toolsRef.current.style.top = 0;
-        toolsRef.current.style.left = 0;
-      } else {
-        toolsRef.current.style.position = 'relative';
-        toolsRef.current.style.top = 'auto';
-        toolsRef.current.style.left = 'auto';
-      }
-    };
-
-    window.addEventListener('scroll', checkScroll);
-
-    return () => window.removeEventListener('scroll', checkScroll);
-  }, [offSet]);
-
   const addHeading = (e, level) => {
     e.preventDefault();
     dispatch({ type: 'ADD_HEADING', payload: level });
@@ -48,7 +23,7 @@ const Tools = ({ dispatch }) => {
   };
 
   return (
-    <div className={styles.tools} ref={toolsRef}>
+    <div className={styles.tools}>
       <div className={styles.headingBtn}>
         <span>
           <span>Heading</span>

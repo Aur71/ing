@@ -11,7 +11,6 @@ import Link from 'next/link';
 
 // MEDIA
 import { FaTrashAlt } from 'react-icons/fa';
-import { AiFillEdit } from 'react-icons/ai';
 
 const Post = ({ article }) => {
   const deletePost = async (e, id) => {
@@ -46,12 +45,6 @@ const Post = ({ article }) => {
           >
             <FaTrashAlt />
           </button>
-
-          <Link href={`/edit/${article?.id}`}>
-            <button className={styles.updateBtn}>
-              <AiFillEdit />
-            </button>
-          </Link>
         </div>
       )}
 
