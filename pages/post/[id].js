@@ -36,7 +36,7 @@ const Post = () => {
     };
 
     getArticle();
-  }, [router.isReady]);
+  }, [router.isReady, router.query.id]);
 
   // GETTING THE AUTHOR
   useEffect(() => {

@@ -1,0 +1,136 @@
+@import './variables.scss';
+
+// TOOLS
+.tools {
+  width: max-content;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $text-clr-1;
+  color: white;
+
+  .icon {
+    display: flex;
+    color: $text-clr-2;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    transition: background-color 300ms;
+
+    &:hover {
+      background-color: $acc-clr;
+    }
+  }
+
+  .headingsWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 300ms;
+
+    div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      display: none;
+
+      button {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        background-color: $text-clr-1;
+        color: $text-clr-2;
+        transition: background-color 300ms;
+
+        &:hover {
+          background-color: $acc-clr;
+        }
+      }
+    }
+
+    &:hover div {
+      display: block;
+    }
+  }
+}
+
+// EDITOR BELOW
+.edit {
+  max-width: 900px;
+  margin: 0 auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-left: 58px;
+  padding-right: 10px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  label {
+    display: block;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+  input[type='text'] {
+    background-color: white;
+    border: none;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    border: 1px solid transparent;
+    outline: transparent;
+    transition: 300ms;
+
+    &:focus {
+      border: 1px solid $acc-clr;
+    }
+  }
+
+  .thumbnailContainer {
+    width: auto;
+    height: auto;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.6rem;
+      color: red;
+    }
+  }
+
+  .data {
+    width: 100%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    height: 1000px;
+  }
+}

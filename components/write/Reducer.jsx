@@ -170,8 +170,9 @@ export function Reducer(state, action) {
 
   if (action.type === 'SET_AUTHOR') {
     const authorId = action.payload.uid;
+    const authorDisplayName = action.payload.displayName;
 
-    return { ...state, author: authorId };
+    return { ...state, author: authorId, authorName: authorDisplayName };
   }
 
   return state;

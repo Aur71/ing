@@ -60,7 +60,7 @@ const SearchResults = () => {
             }
           })
           .map((article) => {
-            const { id, title, author, date } = article;
+            const { id, title, date, authorName } = article;
 
             return (
               <Link
@@ -71,7 +71,7 @@ const SearchResults = () => {
               >
                 <h3>{title}</h3>
                 <h4>
-                  {author} <span>·</span> {toDateTime(date?.seconds)}
+                  {authorName} <span>·</span> {toDateTime(date?.seconds)}
                 </h4>
               </Link>
             );

@@ -27,6 +27,7 @@ const write = () => {
   const [alert, setAlert] = useState(false);
   const [state, dispatch] = useReducer(Reducer, {
     author: '',
+    authorName: '',
     title: '',
     brief: '',
     thumbnail: '',
@@ -48,6 +49,7 @@ const write = () => {
   useEffect(() => {
     if (
       state.author !== '' ||
+      state.authorName !== '' ||
       state.title !== '' ||
       state.brief !== '' ||
       state.thumbnail !== '' ||
@@ -65,6 +67,7 @@ const write = () => {
     if (
       article !== null &&
       (state.author !== '' ||
+        state.authorName !== '' ||
         article.title !== '' ||
         article.brief !== '' ||
         article.thumbnail !== '' ||

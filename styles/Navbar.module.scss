@@ -6,6 +6,7 @@
   background-color: $text-clr-1;
   color: $text-clr-2;
   position: relative;
+  z-index: 9;
 
   ul {
     max-width: 1200px;

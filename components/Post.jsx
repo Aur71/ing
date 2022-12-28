@@ -14,7 +14,6 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { AiFillEdit } from 'react-icons/ai';
 
 const Post = ({ article }) => {
-  // NEED TO ADD AUTHORIZATION
   const deletePost = async (e, id) => {
     if (article?.author !== auth?.currentUser?.uid) {
       return;
@@ -23,18 +22,6 @@ const Post = ({ article }) => {
     e.preventDefault();
     const articleDoc = doc(db, 'articles', id);
     await deleteDoc(articleDoc);
-  };
-
-  // NEED TO ADD AUTHORIZATION
-  const updatePost = async (e, id) => {
-    if (article?.author !== auth?.currentUser?.uid) {
-      return;
-    }
-
-    e.preventDefault();
-    const articleDoc = doc(db, 'articles', id);
-    // const newPost = {};
-    // await updateDoc(articleDoc, newPost);
   };
 
   // CONVERTING DATE
@@ -60,12 +47,11 @@ const Post = ({ article }) => {
             <FaTrashAlt />
           </button>
 
-          <button
-            className={styles.updateBtn}
-            onClick={(e) => updatePost(e, article?.id)}
-          >
-            <AiFillEdit />
-          </button>
+          <Link href={`/edit/${article?.id}`}>
+            <button className={styles.updateBtn}>
+              <AiFillEdit />
+            </button>
+          </Link>
         </div>
       )}
 
