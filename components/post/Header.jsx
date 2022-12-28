@@ -19,7 +19,7 @@ const Header = ({ article, author }) => {
 
   return (
     <div className={styles.header}>
-      <Link href={`/account/${author?._id}`}>
+      <Link href={`/account/${author?.id}`}>
         {author.photoURL && (
           <Image
             priority={true}

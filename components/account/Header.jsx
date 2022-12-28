@@ -6,7 +6,7 @@ import { useGlobalContext } from '../../context/context';
 import Image from 'next/image';
 
 const Header = ({ currentUser }) => {
-  const { logOut } = useGlobalContext();
+  const { logOut, user } = useGlobalContext();
 
   return (
     <div className={styles.header}>
@@ -23,7 +23,9 @@ const Header = ({ currentUser }) => {
       <div className={styles.info}>
         <h1>{currentUser?.displayName}</h1>
 
-        <button onClick={logOut}>logout</button>
+        {user.uid === currentUser.id && (
+          <button onClick={logOut}>logout</button>
+        )}
       </div>
     </div>
   );

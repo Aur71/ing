@@ -12,8 +12,6 @@ import {
   onSnapshot,
   where,
   getDocs,
-  getDoc,
-  doc,
 } from 'firebase/firestore';
 
 // COMPONENETS
@@ -22,7 +20,7 @@ import Body from '../../components/account/Body';
 import GoogleButton from 'react-google-button';
 
 const Account = () => {
-  const { googleSignIn, user, users } = useGlobalContext();
+  const { googleSignIn, user } = useGlobalContext();
   const router = useRouter();
   const [articles, setArticles] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
@@ -44,11 +42,11 @@ const Account = () => {
           articlesRef,
           where('author', '==', user.uid)
         );
-        const articlesSnapshot = await getDocs(articlesQuery);
-        setArticles(articlesSnapshot.docs);
 
-        articlesSnapshot.forEach((doc) => {
-          // console.log(doc.data())
+        const data = onSnapshot(articlesQuery, (snapshot) => {
+          setArticles(
+            snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+          );
         });
       };
 
@@ -56,76 +54,34 @@ const Account = () => {
     } else if (!router.query.name) {
       return;
     } else {
-      console.log('other account');
+      const getInfo = async () => {
+        // GETTING THE USER
+        const userRef = collection(db, 'users');
+        const usersQuery = query(
+          userRef,
+          where('id', '==', router?.query?.name)
+        );
+        const userSnapshot = await getDocs(usersQuery);
+        userSnapshot.forEach((doc) => {
+          setCurrentUser({ ...doc.data(), _id: doc.id });
+        });
+
+        // GETTING THE ARTICLES CORESPONDING TO THE USER
+        const articlesRef = collection(db, 'articles');
+        const articlesQuery = query(
+          articlesRef,
+          where('author', '==', router?.query?.name)
+        );
+        const data = onSnapshot(articlesQuery, (snapshot) => {
+          setArticles(
+            snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+          );
+        });
+      };
+
+      getInfo();
     }
   }, [router.isReady, user, router.query.name]);
-
-  useEffect(() => {
-    console.log(articles);
-  }, [articles]);
-
-  // useEffect(() => {
-  //   const storageUser = JSON.parse(localStorage.getItem('currentUser'));
-  //   const storageArticles = JSON.parse(localStorage.getItem('currentArticles'));
-
-  //   if (articles.length === 0 || currentUser.displayName === null) {
-  //     if (storageUser !== undefined || storageArticles !== undefined) {
-  //       setArticles(storageArticles);
-  //       setCurrentUser(storageUser);
-  //     }
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   // GETTING THE ARTICLES
-  //   if (router.query.name === 'myaccount') {
-  //     if (user?.uid === undefined) {
-  //       return;
-  //     } else {
-  //       setCurrentUser(user);
-  //       const articlesCollectionRef = collection(db, 'articles');
-  //       const q = query(
-  //         articlesCollectionRef,
-  //         where('author', '==', user?.uid)
-  //       );
-
-  //       const data = onSnapshot(q, (snapshot) => {
-  //         setArticles(
-  //           snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-  //         );
-  //       });
-  //     }
-  //   } else {
-  //     users.map((user) => {
-  //       // ADDED TO LOCAL STORAGE
-  //       if (user.id === router.query.name) {
-  //         setCurrentUser(user);
-  //         localStorage.setItem('currentUser', JSON.stringify(user));
-
-  //         const articlesCollectionRef = collection(db, 'articles');
-  //         const q = query(
-  //           articlesCollectionRef,
-  //           where('author', '==', router.query.name)
-  //         );
-
-  //         const data = onSnapshot(q, (snapshot) => {
-  //           const formatedData = JSON.stringify(
-  //             snapshot.docs.map((doc) => ({
-  //               ...doc.data(),
-  //               id: doc.id,
-  //             }))
-  //           );
-
-  //           localStorage.setItem('currentArticles', formatedData);
-
-  //           setArticles(
-  //             snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-  //           );
-  //         });
-  //       }
-  //     });
-  //   }
-  // }, [router.query.name, user]);
 
   // SIGNIN
   const handleSignIn = async () => {
@@ -147,7 +103,7 @@ const Account = () => {
   return (
     <section className={styles.account}>
       <Header currentUser={currentUser} />
-      {/* <Body articles={articles} /> */}
+      <Body articles={articles} />
     </section>
   );
 };
