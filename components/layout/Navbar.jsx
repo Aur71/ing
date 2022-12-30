@@ -2,39 +2,40 @@ import styles from '../../styles/Navbar.module.scss';
 // HOOKS
 import { useGlobalContext } from '../../context/context';
 
+// DATA
+import { navigation } from '../../data/navigation';
+
 // OTHER
 import Link from 'next/link';
 import Image from 'next/image';
 
 // MEDIA
-import logo from '../../public/logo/logo-w-t.png';
-import { BiSearchAlt2 } from 'react-icons/bi';
+import logo from '../../public/logo/logo-b-t.png';
 import { RxHamburgerMenu } from 'react-icons/rx';
 
 const Navbar = () => {
-  const { setShowSearch, setShowSidebar } = useGlobalContext();
+  const { setShowSidebar } = useGlobalContext();
 
   return (
     <nav className={styles.navbar}>
       <ul>
+        {/* LOGO */}
         <li className={styles.logo}>
           <Link href='/'>
-            <Image src={logo} alt='logo' />
+            <Image src={logo} alt='logo' priority={true} />
           </Link>
         </li>
-        <li>
-          <Link href='/account/myaccount'>Account</Link>
-        </li>
-        <li>
-          <Link href='/write'>Write</Link>
-        </li>
 
-        <li className={styles.searchIcon}>
-          <button onClick={() => setShowSearch(true)}>
-            <BiSearchAlt2 />
-          </button>
-        </li>
+        {/* NAVBAR LINKS */}
+        {navigation.map((item) => {
+          return (
+            <li key={item.id}>
+              <Link href={item.path}>{item.name}</Link>
+            </li>
+          );
+        })}
 
+        {/* SIDEBAR BUTTON */}
         <li className={styles.sidebarBtn}>
           <button onClick={() => setShowSidebar(true)}>
             <RxHamburgerMenu />

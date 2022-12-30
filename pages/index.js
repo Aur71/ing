@@ -4,7 +4,10 @@ import styles from '../styles/Home.module.scss';
 import { useEffect, useState } from 'react';
 
 // COMPONENTS
-import Hero from '../components/home/Hero';
+import SectionTitle from '../components/home/SectionTitle';
+import Slider from '../components/home/Slider';
+import MostViewed from '../components/home/MostViewed';
+import AllArticles from '../components/home/AllArticles';
 import Post from '../components/Post';
 
 // FIREBASE
@@ -28,15 +31,20 @@ export default function Home() {
 
   return (
     <section className={styles.home}>
-      <Hero />
+      <SectionTitle />
+      <Slider />
 
-      <h1>Recent posts:</h1>
+      <SectionTitle />
+      <MostViewed />
 
-      <div className={styles.postContainer}>
+      <SectionTitle />
+      <AllArticles />
+
+      {/* <div className={styles.postContainer}>
         {articles.map((article) => {
           return <Post key={article.id} article={article} />;
         })}
-      </div>
+      </div> */}
     </section>
   );
 }
