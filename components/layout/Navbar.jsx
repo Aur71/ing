@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 // MEDIA
-import logo from '../../public/logo/logo-b-t.png';
+import logo from '../../public/logo/logo-w-t.png';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { RxHamburgerMenu } from 'react-icons/rx';
 

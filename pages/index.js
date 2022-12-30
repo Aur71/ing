@@ -30,13 +30,13 @@ export default function Home() {
     <section className={styles.home}>
       <Hero />
 
-      {/* <h1>Recent posts:</h1>
+      <h1>Recent posts:</h1>
 
       <div className={styles.postContainer}>
         {articles.map((article) => {
           return <Post key={article.id} article={article} />;
         })}
-      </div> */}
+      </div>
     </section>
   );
 }
