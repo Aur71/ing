@@ -22,6 +22,8 @@ const AppProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
 
+  console.log(search);
+
   // GETTING USERS
   useEffect(() => {
     const usersCollectionRef = collection(db, 'users');

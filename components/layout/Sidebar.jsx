@@ -1,4 +1,4 @@
-import styles from '../../styles/Sidebar.module.scss';
+import styles from '../../styles/layout/Sidebar.module.scss';
 // HOOKS
 import { useGlobalContext } from '../../context/context';
 

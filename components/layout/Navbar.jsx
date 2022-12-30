@@ -1,4 +1,4 @@
-import styles from '../../styles/Navbar.module.scss';
+import styles from '../../styles/layout/Navbar.module.scss';
 // HOOKS
 import { useGlobalContext } from '../../context/context';
 

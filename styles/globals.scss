@@ -13,6 +13,7 @@ html {
 }
 
 body {
+  background-color: $main-clr;
   font-family: $font-2;
   background-color: $main-clr;
 }
@@ -46,5 +47,4 @@ button {
 main {
   width: 100%;
   height: auto;
-  background-color: $main-clr;
 }

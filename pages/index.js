@@ -1,4 +1,4 @@
-import styles from '../styles/Home.module.scss';
+import styles from '../styles/home/Home.module.scss';
 
 // HOOKS
 import { useEffect, useState } from 'react';
@@ -8,7 +8,7 @@ import SectionTitle from '../components/home/SectionTitle';
 import Slider from '../components/home/Slider';
 import MostViewed from '../components/home/MostViewed';
 import AllArticles from '../components/home/AllArticles';
-import Post from '../components/Post';
+// import Post from '../components/Post';
 
 // FIREBASE
 import { db } from '../firebase-config';
@@ -31,13 +31,13 @@ export default function Home() {
 
   return (
     <section className={styles.home}>
-      <SectionTitle />
+      <SectionTitle title='Latest Articles' />
       <Slider />
 
-      <SectionTitle />
+      <SectionTitle title='Most Viewed' />
       <MostViewed />
 
-      <SectionTitle />
+      <SectionTitle title='All Articles' />
       <AllArticles />
 
       {/* <div className={styles.postContainer}>
