@@ -38,13 +38,7 @@ export default function Home() {
       <MostViewed />
 
       <SectionTitle title='All Articles' />
-      <AllArticles />
-
-      {/* <div className={styles.postContainer}>
-        {articles.map((article) => {
-          return <Post key={article.id} article={article} />;
-        })}
-      </div> */}
+      <AllArticles articles={articles} />
     </section>
   );
 }
