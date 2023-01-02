@@ -1,0 +1,62 @@
+@import '../variables.scss';
+
+.header {
+  width: 100%;
+  max-height: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  @media only screen and (max-width: 650px) {
+    flex-direction: column;
+    height: auto;
+    max-height: none;
+  }
+
+  img {
+    width: 200px;
+    height: auto;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    h1 {
+      font-size: 2.5rem;
+
+      @media only screen and (max-width: 650px) {
+        text-align: center;
+      }
+    }
+
+    button {
+      padding: 0.6rem;
+      background-color: $acc-clr;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: max-content;
+      height: max-content;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 300ms, background-color 300ms;
+
+      @media only screen and (max-width: 650px) {
+        margin: 0 auto;
+      }
+
+      &:hover {
+        background-color: black;
+        color: white;
+      }
+
+      &.active {
+        background-color: green;
+        color: white;
+      }
+    }
+  }
+}

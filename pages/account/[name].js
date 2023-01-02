@@ -1,4 +1,4 @@
-import styles from '../../styles/Account.module.scss';
+import styles from '../../styles/account/Account.module.scss';
 // HOOKS
 import { useGlobalContext } from '../../context/context';
 import { useRouter } from 'next/router';

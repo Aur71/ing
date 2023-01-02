@@ -1,0 +1,10 @@
+@import '../variables.scss';
+
+.body {
+  width: 100%;
+  padding: 3rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  place-items: center;
+}

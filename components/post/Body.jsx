@@ -1,4 +1,4 @@
-import styles from '../../styles/PostPage.module.scss';
+import styles from '../../styles/post/Body.module.scss';
 import Image from 'next/image';
 
 const Body = ({ article }) => {

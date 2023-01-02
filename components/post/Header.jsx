@@ -1,4 +1,4 @@
-import styles from '../../styles/PostPage.module.scss';
+import styles from '../../styles/post/Header.module.scss';
 
 // OTHER
 import Image from 'next/image';

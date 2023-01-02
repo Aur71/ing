@@ -1,4 +1,4 @@
-import styles from '../../styles/PostPage.module.scss';
+import styles from '../../styles/post/Post.module.scss';
 // HOOKS
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';

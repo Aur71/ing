@@ -1,9 +1,9 @@
-import styles from '../styles/Post.module.scss';
+import styles from '../../styles/account/Card.module.scss';
 
 // FIREBASE
-import { db } from '../firebase-config';
-import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
-import { auth } from '../firebase-config';
+import { db } from '../../firebase-config';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { auth } from '../../firebase-config';
 
 // OTHER
 import Image from 'next/image';
@@ -12,7 +12,8 @@ import Link from 'next/link';
 // MEDIA
 import { FaTrashAlt } from 'react-icons/fa';
 
-const Post = ({ article }) => {
+const Card = ({ article }) => {
+  // DELETING POST
   const deletePost = async (e, id) => {
     if (article?.author !== auth?.currentUser?.uid) {
       return;
@@ -36,16 +37,14 @@ const Post = ({ article }) => {
   }
 
   return (
-    <article className={styles.post}>
+    <article className={styles.card}>
       {article?.author === auth?.currentUser?.uid && (
-        <div className={styles.btnContainer}>
-          <button
-            className={styles.deleteBtn}
-            onClick={(e) => deletePost(e, article?.id)}
-          >
-            <FaTrashAlt />
-          </button>
-        </div>
+        <button
+          className={styles.deleteBtn}
+          onClick={(e) => deletePost(e, article?.id)}
+        >
+          <FaTrashAlt />
+        </button>
       )}
 
       {article.thumbnail && (
@@ -68,4 +67,4 @@ const Post = ({ article }) => {
   );
 };
 
-export default Post;
+export default Card;

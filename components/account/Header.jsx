@@ -1,4 +1,4 @@
-import styles from '../../styles/Account.module.scss';
+import styles from '../../styles/account/Header.module.scss';
 // HOOKS
 import { useGlobalContext } from '../../context/context';
 
@@ -12,7 +12,6 @@ const Header = ({ currentUser }) => {
     <div className={styles.header}>
       {currentUser.photoURL && (
         <Image
-          className={styles.user}
           src={currentUser?.photoURL}
           alt='user'
           width={250}
