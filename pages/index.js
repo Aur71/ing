@@ -12,27 +12,44 @@ import AllArticles from '../components/home/AllArticles';
 
 // FIREBASE
 import { db } from '../firebase-config';
-import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  limit,
+} from 'firebase/firestore';
 
 export default function Home() {
+  const [latestArticles, setLatestArticles] = useState([]);
+  const [mostViewedArticles, setMostViewedArticles] = useState([]);
   const [articles, setArticles] = useState([]);
 
   // GETTING THE ARTICLES
   useEffect(() => {
     const articlesCollectionRef = collection(db, 'articles');
     const q = query(articlesCollectionRef, orderBy('date', 'desc'));
+    const latestArticlesQuery = query(
+      articlesCollectionRef,
+      orderBy('date', 'desc'),
+      limit(5)
+    );
 
-    const data = onSnapshot(q, (snapshot) => {
-      setArticles(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    const firstFive = onSnapshot(latestArticlesQuery, (snapshot) => {
+      setLatestArticles(
+        snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
     });
 
-    return data;
+    const allArt = onSnapshot(q, (snapshot) => {
+      setArticles(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
   }, []);
 
   return (
     <section className={styles.home}>
       <SectionTitle title='Latest Articles' />
-      <Slider />
+      <Slider latestArticles={latestArticles} />
 
       <SectionTitle title='Most Viewed' />
       <MostViewed />

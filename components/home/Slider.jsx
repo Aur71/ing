@@ -12,7 +12,7 @@ import { GoArrowRight, GoArrowLeft } from 'react-icons/go';
 // TEMP
 import img from '../../public/temp/coding.jpg';
 
-const Slider = () => {
+const Slider = ({ latestArticles }) => {
   const sliderRef = useRef(null);
 
   const slideLeft = () => {
@@ -34,75 +34,22 @@ const Slider = () => {
       </button>
 
       <div className={styles.cardsContainer} ref={sliderRef}>
-        <article className={styles.card}>
-          <Link href='#'>
-            <Image src={img} alt='img' width={500} height={550} />
-          </Link>
+        {latestArticles.map((article) => {
+          return (
+            <article className={styles.card} key={article?.id}>
+              <Link href={`/post/${article?.id}`}>
+                <Image
+                  src={article?.thumbnail}
+                  alt='thumbnail'
+                  width={500}
+                  height={550}
+                />
 
-          <div className={styles.titleContainer}>
-            <h3>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Assumenda, quisquam exercitationem! Quae eveniet consectetur, et
-              beatae itaque aliquid nesciunt aliquam.
-            </h3>
-          </div>
-        </article>
-
-        <article className={styles.card}>
-          <Link href='#'>
-            <Image src={img} alt='img' width={500} height={550} />
-          </Link>
-
-          <div className={styles.titleContainer}>
-            <h3>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Assumenda, quisquam exercitationem! Quae eveniet consectetur, et
-              beatae itaque aliquid nesciunt aliquam.
-            </h3>
-          </div>
-        </article>
-
-        <article className={styles.card}>
-          <Link href='#'>
-            <Image src={img} alt='img' width={500} height={550} />
-          </Link>
-
-          <div className={styles.titleContainer}>
-            <h3>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Assumenda, quisquam exercitationem! Quae eveniet consectetur, et
-              beatae itaque aliquid nesciunt aliquam.
-            </h3>
-          </div>
-        </article>
-
-        <article className={styles.card}>
-          <Link href='#'>
-            <Image src={img} alt='img' width={500} height={550} />
-          </Link>
-
-          <div className={styles.titleContainer}>
-            <h3>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Assumenda, quisquam exercitationem! Quae eveniet consectetur, et
-              beatae itaque aliquid nesciunt aliquam.
-            </h3>
-          </div>
-        </article>
-
-        <article className={styles.card}>
-          <Link href='#'>
-            <Image src={img} alt='img' width={500} height={550} />
-          </Link>
-
-          <div className={styles.titleContainer}>
-            <h3>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Assumenda, quisquam exercitationem! Quae eveniet consectetur, et
-              beatae itaque aliquid nesciunt aliquam.
-            </h3>
-          </div>
-        </article>
+                <h3>{article?.title}</h3>
+              </Link>
+            </article>
+          );
+        })}
       </div>
     </div>
   );
