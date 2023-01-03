@@ -42,7 +42,9 @@ const Slider = ({ latestArticles }) => {
                   height={550}
                 />
 
-                <h3>{article?.title}</h3>
+                <div className={styles.textContainer}>
+                  <h3>{article?.title}</h3>
+                </div>
               </Link>
             </article>
           );
