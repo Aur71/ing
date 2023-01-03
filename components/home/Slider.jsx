@@ -9,9 +9,6 @@ import Link from 'next/link';
 // MEDIA
 import { GoArrowRight, GoArrowLeft } from 'react-icons/go';
 
-// TEMP
-import img from '../../public/temp/coding.jpg';
-
 const Slider = ({ latestArticles }) => {
   const sliderRef = useRef(null);
 

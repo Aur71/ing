@@ -19,12 +19,6 @@ const navigation = [
     name: 'about',
     path: '/about',
   },
-
-  {
-    id: 4,
-    name: 'contact',
-    path: '/contact',
-  },
 ];
 
 const social = [
