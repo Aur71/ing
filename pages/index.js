@@ -18,6 +18,7 @@ import {
   query,
   orderBy,
   limit,
+  doc,
 } from 'firebase/firestore';
 
 export default function Home() {
